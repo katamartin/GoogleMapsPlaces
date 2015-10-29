@@ -40,3 +40,12 @@ html, body {
 #pac-input:focus {
   border-color: #4d90fe;
 }
+
+#results {
+  max-height: calc(100% - 42px);
+  overflow: scroll;
+}
+
+ul {
+  margin: 0px;
+}

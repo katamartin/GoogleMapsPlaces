@@ -40,22 +40,33 @@
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
-      results.innerHTML += "<li>" + place.name + "</li>";
+      var li = this.createResult(place);
+      results.appendChild(li);
       var icon = {
-        url: place.icon,
+        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      // Create a marker for each place.
-      markers.push(new google.maps.Marker({
+      var marker = new google.maps.Marker({
+        // icon: icon,
         map: this.map,
         title: place.name,
         position: place.geometry.location
-      }));
+      });
+      // debugger;
+      li.addEventListener("mouseover", function() {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      });
 
+      li.addEventListener("mouseout", function() {
+        marker.setAnimation(null);
+      });
+
+      // Create a marker for each place.
+      markers.push(marker);
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
@@ -65,6 +76,16 @@
     }.bind(this));
     this.markers = markers;
     this.map.fitBounds(bounds);
+  };
+
+  Map.createResult = function(place) {
+    var li = document.createElement("LI");
+    var name = document.createElement("B");
+    name.appendChild(document.createTextNode(place.name));
+    name.appendChild(document.createElement("BR"));
+    li.appendChild(name);
+    li.appendChild(document.createTextNode(place.formatted_address));
+    return li;
   };
 
   Map.setLocation = function(position) {
