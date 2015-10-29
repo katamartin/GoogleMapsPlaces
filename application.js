@@ -42,21 +42,12 @@
     places.forEach(function(place) {
       var li = this.createResult(place);
       results.appendChild(li);
-      var icon = {
-        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
 
       var marker = new google.maps.Marker({
-        // icon: icon,
         map: this.map,
         title: place.name,
         position: place.geometry.location
       });
-      // debugger;
       li.addEventListener("mouseover", function() {
         marker.setAnimation(google.maps.Animation.BOUNCE);
       });
