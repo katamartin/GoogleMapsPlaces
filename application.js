@@ -21,25 +21,26 @@
     }.bind(this));
 
     this.markers = [];
-    searchBox.addListener('places_changed', this.updateMarkers.bind(this));
+    searchBox.addListener('places_changed', this.updateResults.bind(this));
   };
 
-  Map.updateMarkers = function() {
+  Map.updateResults = function() {
     var places = this.searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
     // Clear out the old markers.
     this.markers.forEach(function(marker) {
       marker.setMap(null);
     });
     markers = [];
+    var results = document.getElementById('results');
+    results.innerHTML = "";
 
+    if (places.length == 0) {
+      return;
+    }
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
+      results.innerHTML += "<li>" + place.name + "</li>";
       var icon = {
         url: place.icon,
         size: new google.maps.Size(71, 71),
