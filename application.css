@@ -1,4 +1,5 @@
 html, body {
+  font-family: Roboto;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -11,6 +12,11 @@ html, body {
   width: 40%;
 }
 
+#query {
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  z-index: 1;
+}
+
 #map {
   width: 60%;
   left: 40%;
@@ -19,7 +25,7 @@ html, body {
 .controls {
   margin-top: 10px;
   border: none;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid gray;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   height: 32px;
@@ -44,8 +50,16 @@ html, body {
 #results {
   max-height: calc(100% - 42px);
   overflow: scroll;
+  margin: 0px;
+  padding: 0px 5px 0px 5px;
 }
 
 ul {
-  margin: 0px;
+}
+
+li {
+  list-style: none;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: rgba(128, 128, 128, 0.05);
 }
