@@ -12,20 +12,41 @@
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.setLocation.bind(this));
     }
-    var input = document.getElementById('pac-input');
-    var searchBox = new google.maps.places.SearchBox(input);
-    this.searchBox = searchBox;
-
-    this.map.addListener('bounds_changed', function() {
-      searchBox.setBounds(this.map.getBounds());
-    }.bind(this));
+    $("input").on("keyup", this.newQuery.bind(this));
+    $("input").on("change", this.newQuery.bind(this));
+    $("select").on("change", this.newQuery.bind(this));
 
     this.markers = [];
-    searchBox.addListener('places_changed', this.updateResults.bind(this));
+
   };
 
-  Map.updateResults = function() {
-    var places = this.searchBox.getPlaces();
+  Map.newQuery = function() {
+    var location = new google.maps.LatLng(this.center.lat, this.center.lng);
+
+    var request = {
+      location: location,
+      radius: '500',
+      query: $("#pac-input").val(),
+      openNow: $("#open-now").prop('checked'),
+      rankBy: this.rankBy($("select").val())
+    };
+
+    service = new google.maps.places.PlacesService(this.map);
+    service.textSearch(request, function(results, status) {
+      this.updateResults(results);
+    }.bind(this));
+
+  };
+
+  Map.rankBy = function(str) {
+    if (str === "prominence") {
+      return google.maps.places.RankBy.PROMINENCE;
+    } else {
+      return google.maps.places.RankBy.DISTANCE;
+    }
+  }
+
+  Map.updateResults = function(places) {
     // Clear out the old markers.
     this.markers.forEach(function(marker) {
       marker.setMap(null);
