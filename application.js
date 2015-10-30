@@ -60,6 +60,11 @@
         this.infowindow.close();
       }.bind(this));
 
+      marker.addListener("click", function() {
+        this.infowindow.setContent(place.name);
+        this.infowindow.open(this.map, marker);
+      }.bind(this));
+
       // Create a marker for each place.
       markers.push(marker);
       if (place.geometry.viewport) {
