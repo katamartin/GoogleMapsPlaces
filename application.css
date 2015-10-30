@@ -48,9 +48,13 @@ html, body {
 }
 
 #results {
-  max-height: calc(100% - 42px);
+  max-height: calc(100% - 62px);
   overflow: scroll;
+  position: absolute;
+  top: 62px;
+  width: 100%;
   margin: 0px;
+  bottom: 0px;
   padding: 0px 5px 0px 5px;
 }
 
@@ -62,6 +66,13 @@ li {
   padding: 20px;
   margin-top: 10px;
   background-color: rgba(128, 128, 128, 0.05);
+}
+
+form {
+  left: 5px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
 }
 
 .open {

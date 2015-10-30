@@ -11,13 +11,15 @@
   <body>
     <div id="query">
       <input id="pac-input" class="controls" type="text" placeholder="Search for places">
-      <label>Open Now: <input type="checkbox" id="open-now" name="open" value="1"></label>
-      <label>Order By:
-        <select name="order">
-          <option value="prominence">Prominence</option>
-          <option value="distance">Distance</option>
-        </select>
-      </label>
+      <form>
+        <label>Open Now: <input type="checkbox" id="open-now" name="open" value="1"></label>
+        <label>Order By:
+          <select name="order">
+            <option value="prominence">Prominence</option>
+            <option value="distance">Distance</option>
+          </select>
+        </label>
+      </form>
       <ul id="results"></ul>
     </div>
     <div id="map"></div>
