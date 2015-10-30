@@ -85,6 +85,18 @@
     name.appendChild(document.createElement("BR"));
     li.appendChild(name);
     li.appendChild(document.createTextNode(place.formatted_address));
+    if (place.opening_hours) {
+      var open = document.createElement("B");
+      if (place.opening_hours.open_now) {
+        open.setAttribute("class", "open");
+        open.appendChild(document.createTextNode("Open Now"));
+      } else {
+        open.setAttribute("class", "closed");
+        open.appendChild(document.createTextNode("Closed"));
+      }
+      li.appendChild(document.createElement("BR"));
+      li.appendChild(open);
+    }
     return li;
   };
 

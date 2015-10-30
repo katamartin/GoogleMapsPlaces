@@ -63,3 +63,11 @@ li {
   margin-top: 10px;
   background-color: rgba(128, 128, 128, 0.05);
 }
+
+.open {
+  color: green;
+}
+
+.closed {
+  color: red;
+}
