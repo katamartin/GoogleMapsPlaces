@@ -48,13 +48,17 @@
         title: place.name,
         position: place.geometry.location
       });
+
+      this.infowindow = new google.maps.InfoWindow();
       li.addEventListener("mouseover", function() {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-      });
+        this.infowindow.close();
+        this.infowindow.setContent(place.name);
+        this.infowindow.open(this.map, marker);
+      }.bind(this));
 
       li.addEventListener("mouseout", function() {
-        marker.setAnimation(null);
-      });
+        this.infowindow.close();
+      }.bind(this));
 
       // Create a marker for each place.
       markers.push(marker);
