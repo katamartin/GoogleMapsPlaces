@@ -51,6 +51,10 @@
 
       this.infowindow = new google.maps.InfoWindow();
 
+      this.infowindow.addListener("closeclick", function() {
+        $(".active").removeClass("active");
+      });
+
       li.addEventListener("click", function() {
         this.updateActive(place, li, marker);
       }.bind(this));
