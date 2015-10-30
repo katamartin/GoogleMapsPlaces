@@ -50,26 +50,17 @@
       });
 
       this.infowindow = new google.maps.InfoWindow();
-      li.addEventListener("mouseover", function() {
-        this.infowindow.close();
-        this.infowindow.setContent(place.name);
-        this.infowindow.open(this.map, marker);
-      }.bind(this));
-
-      li.addEventListener("mouseout", function() {
-        this.infowindow.close();
-      }.bind(this));
 
       li.addEventListener("click", function() {
-        marker.click();
-      });
+        this.updateActive(place, li, marker);
+      }.bind(this));
 
       marker.addListener("click", function() {
-        $(".active").removeClass("active");
-        li.setAttribute("class", "active");
-        this.infowindow.setContent(place.name);
-        this.infowindow.open(this.map, marker);
-        document.getElementById(place.place_id).scrollIntoView({block: "end", behavior: "smooth"});
+        this.updateActive(place, li, marker);
+        document.getElementById(place.place_id).scrollIntoView({
+          block: "end",
+          behavior: "smooth"
+        });
       }.bind(this));
 
       // Create a marker for each place.
@@ -83,6 +74,13 @@
     }.bind(this));
     this.markers = markers;
     this.map.fitBounds(bounds);
+  };
+
+  Map.updateActive = function(place, li, marker) {
+    $(".active").removeClass("active");
+    li.setAttribute("class", "active");
+    this.infowindow.setContent(place.name);
+    this.infowindow.open(this.map, marker);
   };
 
   Map.createResult = function(place) {
