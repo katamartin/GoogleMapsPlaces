@@ -17,7 +17,6 @@
     $("select").on("change", this.newQuery.bind(this));
 
     this.markers = [];
-
   };
 
   Map.newQuery = function() {
@@ -52,8 +51,8 @@
       marker.setMap(null);
     });
     markers = [];
-    var results = document.getElementById('results');
-    results.innerHTML = "";
+    var results = $("#results")
+    results.html("");
 
     if (places.length == 0) {
       return;
@@ -62,7 +61,7 @@
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
       var li = this.createResult(place);
-      results.appendChild(li);
+      results.append(li);
 
       var marker = new google.maps.Marker({
         map: this.map,
@@ -76,7 +75,7 @@
         $(".active").removeClass("active");
       });
 
-      li.addEventListener("click", function() {
+      li.on("click", function() {
         this.updateActive(place, li, marker);
       }.bind(this));
 
@@ -103,30 +102,28 @@
 
   Map.updateActive = function(place, li, marker) {
     $(".active").removeClass("active");
-    li.setAttribute("class", "active");
+    li.addClass("active");
     this.infowindow.setContent(place.name);
     this.infowindow.open(this.map, marker);
   };
 
   Map.createResult = function(place) {
-    var li = document.createElement("LI");
-    var name = document.createElement("B");
-    name.appendChild(document.createTextNode(place.name));
-    name.appendChild(document.createElement("BR"));
-    li.appendChild(name);
-    li.appendChild(document.createTextNode(place.formatted_address));
+    var li = $("<li>");
+    var name = $("<b>" + place.name + "</b><br>");
+    li.append(name);
+    li.append(place.formatted_address);
     if (place.opening_hours) {
-      var open = document.createElement("B");
+      var open = $("<b>");
       if (place.opening_hours.open_now) {
-        open.setAttribute("class", "open");
-        open.appendChild(document.createTextNode("Open Now"));
+        open.addClass("open");
+        open.text("Open Now");
       } else {
-        open.setAttribute("class", "closed");
-        open.appendChild(document.createTextNode("Closed"));
+        open.addClass("closed");
+        open.text("Closed");
       }
-      li.appendChild(document.createElement("BR"));
-      li.appendChild(open);
-      li.setAttribute("id", place.place_id)
+      li.append("<br>");
+      li.append(open);
+      li.attr("id", place.place_id)
     }
     return li;
   };
