@@ -60,9 +60,16 @@
         this.infowindow.close();
       }.bind(this));
 
+      li.addEventListener("click", function() {
+        marker.click();
+      });
+
       marker.addListener("click", function() {
+        $(".active").removeClass("active");
+        li.setAttribute("class", "active");
         this.infowindow.setContent(place.name);
         this.infowindow.open(this.map, marker);
+        document.getElementById(place.place_id).scrollIntoView({block: "end", behavior: "smooth"});
       }.bind(this));
 
       // Create a marker for each place.
@@ -96,6 +103,7 @@
       }
       li.appendChild(document.createElement("BR"));
       li.appendChild(open);
+      li.setAttribute("id", place.place_id)
     }
     return li;
   };
